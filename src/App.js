@@ -75,6 +75,7 @@ function App() {
   return (
     <>
       <Header />
+      <p className='errors'>{wrongLetters.length} / 6 errors</p>
       <div className='game-container'>
         <Figure wrongLetters={wrongLetters} />
         <WrongLetters wrongLetters={wrongLetters} />

@@ -138,3 +138,8 @@ h1 {
 .notification-container.show {
   transform: translateY(-50px);
 }
+
+.errors {
+  font-size: 20px;
+  font-weight: bolder;
+}
