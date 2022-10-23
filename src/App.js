@@ -3,6 +3,7 @@ import Header from './components/Header'
 import Figure from './components/Figure'
 import WrongLetters from './components/WrongLeters'
 import Word from './components/Word'
+import Name from './components/Name'
 import Popup from './components/Popup'
 import Notification from './components/Notification'
 import { showNotification as show } from './helpers/helpers'
@@ -16,17 +17,18 @@ function App() {
   const [wrongLetters, setWrongLetters] = useState([])
   const [showNotification, setShowNotification] = useState(false)
   const [quote, setQuote] = useState('dino')
+  const [userName, setUserName] = useState('')
 
   // fetch the quote
   const getQuote = () => {
     axios
-    .get('https://api.quotable.io/random')
-    .then(async (res) => {
-      setQuote(res.data.content.toLowerCase())
-    })
-    .catch((err) => {
-      console.log(err);
-    })
+      .get('https://api.quotable.io/random')
+      .then(async (res) => {
+        setQuote(res.data.content.toLowerCase())
+      })
+      .catch((err) => {
+        console.log(err)
+      })
     setCorrectLetters([])
     setWrongLetters([])
   }
@@ -83,6 +85,7 @@ function App() {
         <button onClick={getQuote}>Restart</button>
       </div>
       <p>QUOTE: {selectedWord}</p>
+      <Notification showNotification={showNotification} />
       <Popup
         correctLetters={correctLetters}
         wrongLetters={wrongLetters}
@@ -90,7 +93,12 @@ function App() {
         setPlayable={setPlayable}
         playAgain={playAgain}
       />
-      <Notification showNotification={showNotification} />
+      <Name
+        playAgain={playAgain}
+        setPlayable={setPlayable}
+        setUserName={setUserName}
+        getQuote={getQuote}
+      />
     </>
   )
 }
