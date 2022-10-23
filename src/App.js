@@ -6,18 +6,32 @@ import Word from './components/Word'
 import Popup from './components/Popup'
 import Notification from './components/Notification'
 import { showNotification as show } from './helpers/helpers'
+import axios from 'axios'
 
 import './App.css'
-
-const words = ['application', 'programming', 'interface', 'wizard']
-
-let selectedWord = words[Math.floor(Math.random() * words.length)]
 
 function App() {
   const [playable, setPlayable] = useState(true)
   const [correctLetters, setCorrectLetters] = useState([])
   const [wrongLetters, setWrongLetters] = useState([])
   const [showNotification, setShowNotification] = useState(false)
+  const [quote, setQuote] = useState('dino')
+
+  // fetch the quote
+  const getQuote = () => {
+    axios
+    .get('https://api.quotable.io/random')
+    .then(async (res) => {
+      setQuote(res.data.content.toLowerCase())
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    setCorrectLetters([])
+    setWrongLetters([])
+  }
+
+  let selectedWord = quote
 
   useEffect(() => {
     const handleKeydown = (event) => {
@@ -54,8 +68,8 @@ function App() {
     setCorrectLetters([])
     setWrongLetters([])
 
-    const random = Math.floor(Math.random() * words.length)
-    selectedWord = words[random]
+    // give new quote
+    getQuote()
   }
 
   return (
@@ -65,6 +79,7 @@ function App() {
         <Figure wrongLetters={wrongLetters} />
         <WrongLetters wrongLetters={wrongLetters} />
         <Word selectedWord={selectedWord} correctLetters={correctLetters} />
+        <button onClick={getQuote}>Restart</button>
       </div>
       <Popup correctLetters={correctLetters} wrongLetters={wrongLetters} selectedWord={selectedWord} setPlayable={setPlayable} playAgain={playAgain}/>
       <Notification showNotification={showNotification} />
