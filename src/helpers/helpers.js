@@ -8,8 +8,11 @@ export function showNotification(setter) {
 export function checkWin(correct, wrong, word) {
  let status = 'win'
 
+ // remove non-letters
+ let newWord = word.replace(/[^a-z]/g, '')
+
  // check for win
- word.split('').forEach(letter => {
+ newWord.split('').forEach(letter => {
   if (!correct.includes(letter)){
    // it does not mean we lost or win
    status = ''

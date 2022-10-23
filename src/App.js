@@ -81,7 +81,14 @@ function App() {
         <Word selectedWord={selectedWord} correctLetters={correctLetters} />
         <button onClick={getQuote}>Restart</button>
       </div>
-      <Popup correctLetters={correctLetters} wrongLetters={wrongLetters} selectedWord={selectedWord} setPlayable={setPlayable} playAgain={playAgain}/>
+      <p>QUOTE: {selectedWord}</p>
+      <Popup
+        correctLetters={correctLetters}
+        wrongLetters={wrongLetters}
+        selectedWord={selectedWord}
+        setPlayable={setPlayable}
+        playAgain={playAgain}
+      />
       <Notification showNotification={showNotification} />
     </>
   )
