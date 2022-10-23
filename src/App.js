@@ -45,6 +45,31 @@ function App() {
 
   let selectedWord = quote
 
+  // GET High scores
+
+  useEffect( () => {
+     axios
+      .get(
+        'https://my-json-server.typicode.com/Serapion-ZG/hangman-ts/highscores'
+      )
+      .then((res) => {
+        let tableFinal = res.data.map(
+           ({ id, quoteId, length, uniqueCharacters, duration, ...item }) => ({
+            ...item,
+          })
+        )
+        // console.log('NEW TABLE')
+        // console.log(tableFinal)
+       setHighScore([...tableFinal])
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }, [])
+
+  console.log('↓HIGHSCORE↓')
+  console.log(highScore)
+
   useEffect(() => {
     const handleKeydown = (event) => {
       const { key, keyCode } = event
