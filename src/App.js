@@ -18,13 +18,23 @@ function App() {
   const [showNotification, setShowNotification] = useState(false)
   const [quote, setQuote] = useState('dino')
   const [userName, setUserName] = useState('')
+  const [quoteID, setQuoteID] = useState(0)
+  const [quoteLength, setQuoteLength] = useState(0)
+  const [uniqueChar, setUniqueChar] = useState(0)
+  const [duration, setDuration] = useState(0)
+  const [highScore, setHighScore] = useState([])
 
-  // fetch the quote
+  // fetch the quote data
   const getQuote = () => {
     axios
       .get('https://api.quotable.io/random')
       .then(async (res) => {
         setQuote(res.data.content.toLowerCase())
+        setQuoteID(res.data._id)
+        setQuoteLength(res.data.length)
+        setUniqueChar(new Set(res.data.content).size)
+        // hard coding the duration for now → will deal with it later
+        setDuration(Math.trunc(949500 / new Set(res.data.content).size))
       })
       .catch((err) => {
         console.log(err)
@@ -85,6 +95,11 @@ function App() {
         <button onClick={getQuote}>Restart</button>
       </div>
       <p>QUOTE: {selectedWord}</p>
+      <p>Quote ID: {quoteID}</p>
+      <p>Quote length: {quoteLength}</p>
+      <p>Unique chars: {uniqueChar}</p>
+      <p>user name: {userName}</p>
+      <p>errors: {wrongLetters.length}</p>
       <Notification showNotification={showNotification} />
       <Popup
         correctLetters={correctLetters}
@@ -92,6 +107,12 @@ function App() {
         selectedWord={selectedWord}
         setPlayable={setPlayable}
         playAgain={playAgain}
+        quoteID={quoteID}
+        quoteLength={quoteLength}
+        uniqueChar={uniqueChar}
+        userName={userName}
+        duration={duration}
+        highScore={highScore}
       />
       <Name
         playAgain={playAgain}
