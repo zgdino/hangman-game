@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 
+// mandatory first screen
 const Name = ({ playAgain, setPlayable, setUserName, getQuote }) => {
   const [name, setName] = useState('')
   const [clicked, setClicked] = useState(false)

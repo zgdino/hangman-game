@@ -14,7 +14,7 @@ export function checkWin(correct, wrong, word) {
  // check for win
  newWord.split('').forEach(letter => {
   if (!correct.includes(letter)){
-   // it does not mean we lost or win
+   // it does not mean we lost or won → we are still playing
    status = ''
   }
  })

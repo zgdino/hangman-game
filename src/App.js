@@ -45,7 +45,7 @@ function App() {
 
   let selectedWord = quote
 
-  // GET High scores
+  // GET High scores - not clear for now(getting multiple requests for some reason - try async function)
 
   useEffect( () => {
      axios
@@ -70,6 +70,7 @@ function App() {
   console.log('↓HIGHSCORE↓')
   console.log(highScore)
 
+  // keyboard letters sensitivity
   useEffect(() => {
     const handleKeydown = (event) => {
       const { key, keyCode } = event
